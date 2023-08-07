@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { fetchArticles } from '../API/api';
 import { Article } from '../Types/Article';
 
-import { ArticlesList } from '../Components/ArticlesList/ArticlesList';
+import { Header } from '../Components/Header';
+import { ArticlesList } from '../Components/ArticlesList';
 
 import './App.css';
 
@@ -26,6 +27,8 @@ export const App = () => {
   
   return (
     <div className="App">
+      <Header />
+      
       <ArticlesList articles={articles} />
     </div>
   );
