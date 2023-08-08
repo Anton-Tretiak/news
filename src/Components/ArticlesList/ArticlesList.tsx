@@ -1,17 +1,22 @@
 import { FC } from 'react';
 
+import { ArticleItem } from '../ArticleItem';
+
 import { Article } from '../../Types/Article';
 
 type Props = {
   articles: Article[];
+  title: string;
 }
 
-export const ArticlesList: FC<Props> = ({ articles }) => (
-  <ul>
+export const ArticlesList: FC<Props> = ({ articles, title }) => (
+  <section className='articles section'>
+    <h1 className="title is-size-4-mobile is-size-3-desktop">
+      {title}
+    </h1>
+    
     {articles.map((article) => (
-      <li key={article.url}>
-        {article.title}
-      </li>
+      <ArticleItem key={article.url} article={article}/>
     ))}
-  </ul>
+  </section>
 );

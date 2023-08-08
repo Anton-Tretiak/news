@@ -4,7 +4,7 @@ import { fetchArticles } from '../API/api';
 import { Article } from '../Types/Article';
 
 import { Header } from '../Components/Header';
-import { ArticlesList } from '../Components/ArticlesList';
+import { MainPage } from '../Pages/MainPage/MainPage';
 
 import './App.css';
 
@@ -13,7 +13,7 @@ export const App = () => {
   
   const fetchData = async() => {
     try {
-      const articlesData = await fetchArticles('us');
+      const articlesData = await fetchArticles('us', 12);
       
       setArticles(articlesData);
     } catch {
@@ -29,7 +29,7 @@ export const App = () => {
     <div className="App">
       <Header />
       
-      <ArticlesList articles={articles} />
+      <MainPage articles={articles} />
     </div>
   );
 };
