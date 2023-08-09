@@ -2,8 +2,8 @@ import { FC, useState } from 'react';
 
 import { Article } from '../../Types/Article';
 
-import './ArticleItem.scss';
 import defaultImage from '../../Assets/no-image.jpg';
+import './ArticleItem.scss';
 
 type Props = {
   article: Article;
@@ -28,7 +28,9 @@ export const ArticleItem: FC<Props> = ({ article }) => {
         onError={handleImageError}
       />
       <div className='article__details'>
-        <h5 className='article__title is-size-6-mobile'>{article.title}</h5>
+        <h5 className='article__title is-size-6-mobile'>
+          {article.title}
+        </h5>
         
         <span className='article__published is-size-7-mobile'>
           Published: {formattedTime}, {formattedDate}

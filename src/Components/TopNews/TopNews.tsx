@@ -24,8 +24,9 @@ export const TopNews: FC<Props> = ({ articles }) => {
           >
             <div
               className='top-news__article-image'
-              style={{ backgroundImage: `url(${article.urlToImage || defaultImage})` }}
-            ></div>
+            >
+              <img src={article.urlToImage || defaultImage} alt=""/>
+            </div>
             
             <h5 className='top-news__article-title is-size-6-mobile'>{article.title}</h5>
           </div>
