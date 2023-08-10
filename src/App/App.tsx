@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { Header, Footer } from '../Components';
-import { MainPage, ListPage } from '../Pages';
+import { useArticleData } from '../Hooks/useArticleData';
 
-import { fetchArticles } from '../API/api';
-import { Article } from '../Types/Article';
+import { MainPage, ListPage } from '../Pages';
+import { Header, Footer } from '../Components';
 
 import './App.css';
 
 export const App = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  
-  const fetchData = async() => {
-    try {
-      setIsLoading(true);
-      
-      const articlesData = await fetchArticles('us');
-      
-      setArticles(articlesData);
-    } catch {
-      throw new Error('Error while fetching data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const {
+    articles,
+    category,
+    selectedArticle,
+    isModalVisible,
+    isLoading,
+    handleArticleClick,
+    closeModal,
+    handleCategoryChange,
+    handleQueryChange,
+  } = useArticleData();
   
   return (
     <Router>
@@ -37,9 +27,35 @@ export const App = () => {
         <Header />
         
         <Routes>
-          <Route path='/' element={<MainPage articles={articles} isLoading={isLoading} />} />
+          <Route
+            path="/"
+            element={
+              <MainPage
+                articles={articles}
+                isLoading={isLoading}
+                selectedArticle={selectedArticle}
+                isModalVisible={isModalVisible}
+                activeCategory={category}
+                handleQueryChange={handleQueryChange}
+                handleCategoryChange={handleCategoryChange}
+                handleArticleClick={handleArticleClick}
+                closeModal={closeModal}
+              />
+            }
+          />
           
-          <Route path='/list' element={<ListPage articles={articles} />} />
+          <Route
+            path="/list"
+            element={
+              <ListPage
+                articles={articles}
+                selectedArticle={selectedArticle}
+                isModalVisible={isModalVisible}
+                handleArticleClick={handleArticleClick}
+                closeModal={closeModal}
+              />
+            }
+          />
         </Routes>
         
         <Footer />

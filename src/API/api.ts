@@ -3,8 +3,8 @@ import { fetchArticlesResponse } from '../Types/fetchArticlesResponse';
 const API_KEY = '801db8fcadbf41f2a2c1dae35c6f0e6b';
 const API_URL = 'https://newsapi.org/v2/top-headlines';
 
-export const fetchArticles = async(country: string) => {
-  const url = `${API_URL}?country=${country}&pageSize=36&apiKey=${API_KEY}`;
+export const fetchArticles = async(category: string, query: string) => {
+  const url = `${API_URL}?q=${query}&country=us&category=${category}&pageSize=36&apiKey=${API_KEY}`;
   
   try {
     const response = await fetch(url);
