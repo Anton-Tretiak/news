@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import { TopNewsItem } from '../TopNewsItem';
 import { ModalContent } from '../ModalContent';
@@ -15,13 +15,17 @@ type Props = {
   onCloseModal: () => void;
 };
 
-export const TopNews: FC<Props> = (
+export const TopNews: FC<Props> = React.memo((
   { articles,
     selectedArticle,
     isModalVisible,
     onArticleClick,
     onCloseModal },
 ) => {
+  const handleArticleClick = useCallback((article: Article) => {
+    onArticleClick(article);
+  }, [onArticleClick]);
+  
   return (
     <section className='top-news section'>
       <h1 className='top-news__title title is-size-4-mobile is-size-3-desktop'>
@@ -33,7 +37,7 @@ export const TopNews: FC<Props> = (
           <div
             className='top-news__item column is-half-tablet is-one-third-desktop'
             key={article.url}
-            onClick={() => onArticleClick(article)}
+            onClick={() => handleArticleClick(article)}
           >
             <TopNewsItem article={article} />
           </div>
@@ -45,4 +49,4 @@ export const TopNews: FC<Props> = (
       )}
     </section>
   );
-};
+});

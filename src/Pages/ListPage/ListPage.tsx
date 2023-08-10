@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 
 import { ArticlesList, Pagination } from '../../Components';
 
@@ -14,13 +14,13 @@ type Props = {
   closeModal: () => void;
 };
 
-export const ListPage: FC<Props> = (
-  { articles,
-    selectedArticle,
-    isModalVisible,
-    handleArticleClick,
-    closeModal },
-) => {
+export const ListPage: FC<Props> = ({
+  articles,
+  selectedArticle,
+  isModalVisible,
+  handleArticleClick,
+  closeModal,
+}) => {
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const maxPages = Math.ceil(articles.length / itemsPerPage);
@@ -38,7 +38,7 @@ export const ListPage: FC<Props> = (
   const displayedArticles = articles.slice(startIndex, endIndex);
   
   return (
-    <div className='list-page'>
+    <div className='list-page' style={{ width: '80%' }}>
       <ArticlesList
         title='More News'
         articles={displayedArticles}

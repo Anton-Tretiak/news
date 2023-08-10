@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { TopNews, ArticlesList, Loader } from '../../Components';
+import { TopNews, ArticlesList, Loader, Filters } from '../../Components';
 
 import { Article } from '../../Types/Article';
 
@@ -12,18 +12,24 @@ type Props = {
   isLoading: boolean;
   selectedArticle: Article | null;
   isModalVisible: boolean;
+  activeCategory: string;
   handleArticleClick: (article: Article) => void;
+  handleCategoryChange: (selectedCategory: string) => void;
+  handleQueryChange: (value: string) => void;
   closeModal: () => void;
 };
 
-export const MainPage: FC<Props> = (
-  { articles,
-    isLoading,
-    selectedArticle,
-    isModalVisible,
-    handleArticleClick,
-    closeModal },
-) => {
+export const MainPage: FC<Props> = memo(({
+  articles,
+  isLoading,
+  selectedArticle,
+  isModalVisible,
+  handleArticleClick,
+  activeCategory,
+  closeModal,
+  handleCategoryChange,
+  handleQueryChange,
+}) => {
   const splitIndex = 6;
   const topNews = articles.slice(0, splitIndex);
   const moreNews = articles.slice(splitIndex, splitIndex * 2);
@@ -34,6 +40,12 @@ export const MainPage: FC<Props> = (
         <Loader />
       ) : (
         <>
+          <Filters
+            activeCategory={activeCategory}
+            onQueryChange={handleQueryChange}
+            onCategoryChange={handleCategoryChange}
+          />
+          
           <TopNews
             articles={topNews}
             selectedArticle={selectedArticle}
@@ -60,4 +72,4 @@ export const MainPage: FC<Props> = (
       )}
     </section>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, memo } from 'react';
 
 import { ArticleItem } from '../ArticleItem';
 import { ModalContent } from '../ModalContent';
@@ -14,16 +14,16 @@ type Props = {
   isModalVisible: boolean;
   onArticleClick: (article: Article) => void;
   onCloseModal: () => void;
-}
+};
 
-export const ArticlesList: FC<Props> = (
-  { articles,
-    title,
-    selectedArticle,
-    isModalVisible,
-    onArticleClick,
-    onCloseModal },
-) => {
+export const ArticlesList: FC<Props> = memo(({
+  articles,
+  title,
+  selectedArticle,
+  isModalVisible,
+  onArticleClick,
+  onCloseModal,
+}) => {
   return (
     <section className='articles section'>
       <h1 className="title is-size-4-mobile is-size-3-desktop">
@@ -33,8 +33,8 @@ export const ArticlesList: FC<Props> = (
       {articles.map((article) => (
         <div
           key={article.url}
-          onClick={() => onArticleClick(article)}
           className='articles__article-wrapper'
+          onClick={() => onArticleClick(article)}
         >
           <ArticleItem article={article} />
         </div>
@@ -45,4 +45,4 @@ export const ArticlesList: FC<Props> = (
       )}
     </section>
   );
-};
+});

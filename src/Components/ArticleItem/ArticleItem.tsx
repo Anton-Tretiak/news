@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, useState, memo } from 'react';
 
 import { Article } from '../../Types/Article';
 
@@ -9,7 +9,7 @@ type Props = {
   article: Article;
 };
 
-export const ArticleItem: FC<Props> = ({ article }) => {
+export const ArticleItem: FC<Props> = memo(({ article }) => {
   const [imageSrc, setImageSrc] = useState(article.urlToImage || defaultImage);
   const publishedDate = new Date(article.publishedAt);
   const formattedTime = publishedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -21,13 +21,12 @@ export const ArticleItem: FC<Props> = ({ article }) => {
   
   return (
     <div className='article box content'>
-      <div className='article__image'>
-        <img
-          src={imageSrc}
-          alt="article image"
-          onError={handleImageError}
-        />
-      </div>
+      <img
+        src={imageSrc}
+        alt="article image"
+        className='article__image'
+        onError={handleImageError}
+      />
       
       <div className='article__details'>
         <h5 className='article__title is-size-6-mobile'>
@@ -40,4 +39,4 @@ export const ArticleItem: FC<Props> = ({ article }) => {
       </div>
     </div>
   );
-};
+});
