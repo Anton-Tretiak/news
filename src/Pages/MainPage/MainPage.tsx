@@ -9,10 +9,10 @@ import './MainPage.scss';
 
 type Props = {
   articles: Article[];
-  isLoading: boolean;
   selectedArticle: Article | null;
-  isModalVisible: boolean;
   activeCategory: string;
+  isLoading: boolean;
+  isModalVisible: boolean;
   handleArticleClick: (article: Article) => void;
   handleCategoryChange: (selectedCategory: string) => void;
   handleQueryChange: (value: string) => void;
@@ -21,14 +21,14 @@ type Props = {
 
 export const MainPage: FC<Props> = memo(({
   articles,
-  isLoading,
   selectedArticle,
+  activeCategory,
+  isLoading,
   isModalVisible,
   handleArticleClick,
-  activeCategory,
-  closeModal,
   handleCategoryChange,
   handleQueryChange,
+  closeModal,
 }) => {
   const splitIndex = 6;
   const topNews = articles.slice(0, splitIndex);

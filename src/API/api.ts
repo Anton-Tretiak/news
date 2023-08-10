@@ -1,6 +1,6 @@
 import { fetchArticlesResponse } from '../Types/fetchArticlesResponse';
 
-const API_KEY = '801db8fcadbf41f2a2c1dae35c6f0e6b';
+const API_KEY = '80ba48efb3be49f1b8007e777627d618';
 const API_URL = 'https://newsapi.org/v2/top-headlines';
 
 export const fetchArticles = async(category: string, query: string) => {

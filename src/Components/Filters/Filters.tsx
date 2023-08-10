@@ -11,7 +11,7 @@ type Props = {
   onCategoryChange: (selectedCategory: string) => void;
 }
 
-export const Filters: FC<Props> = ({ onCategoryChange, activeCategory, onQueryChange }) => {
+export const Filters: FC<Props> = ({ activeCategory, onCategoryChange, onQueryChange }) => {
   const categories = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
   
   return (

@@ -17,9 +17,11 @@ export const Modal: FC<Props> = ({ onClose, children }) => {
   return (
     <div className="modal is-active">
       <div className="modal-background" onClick={onClose}></div>
+      
       <div className="modal-content">
         {children}
       </div>
+      
       <button
         className="modal-close is-large"
         aria-label="close"
