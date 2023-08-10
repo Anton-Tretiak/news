@@ -1,5 +1,4 @@
 import { FC, useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 
 import { ArticlesList, Pagination } from '../../Components';
 
@@ -9,9 +8,19 @@ import './ListPage.scss';
 
 type Props = {
   articles: Article[];
+  selectedArticle: Article | null;
+  isModalVisible: boolean;
+  handleArticleClick: (article: Article) => void;
+  closeModal: () => void;
 };
 
-export const ListPage: FC<Props> = ({ articles }) => {
+export const ListPage: FC<Props> = (
+  { articles,
+    selectedArticle,
+    isModalVisible,
+    handleArticleClick,
+    closeModal },
+) => {
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const maxPages = Math.ceil(articles.length / itemsPerPage);
@@ -30,7 +39,14 @@ export const ListPage: FC<Props> = ({ articles }) => {
   
   return (
     <div className='list-page'>
-      <ArticlesList title='More News' articles={displayedArticles} />
+      <ArticlesList
+        title='More News'
+        articles={displayedArticles}
+        selectedArticle={selectedArticle}
+        isModalVisible={isModalVisible}
+        onArticleClick={handleArticleClick}
+        onCloseModal={closeModal}
+      />
       
       <Pagination
         maxPages={maxPages}

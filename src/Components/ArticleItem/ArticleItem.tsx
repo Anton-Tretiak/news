@@ -21,12 +21,14 @@ export const ArticleItem: FC<Props> = ({ article }) => {
   
   return (
     <div className='article box content'>
-      <img
-        className='article__image'
-        src={imageSrc}
-        alt="article image"
-        onError={handleImageError}
-      />
+      <div className='article__image'>
+        <img
+          src={imageSrc}
+          alt="article image"
+          onError={handleImageError}
+        />
+      </div>
+      
       <div className='article__details'>
         <h5 className='article__title is-size-6-mobile'>
           {article.title}

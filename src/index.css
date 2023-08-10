@@ -22,3 +22,7 @@ code {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.body-scroll-lock {
+  overflow: hidden !important;
+}

@@ -10,9 +10,20 @@ import './MainPage.scss';
 type Props = {
   articles: Article[];
   isLoading: boolean;
+  selectedArticle: Article | null;
+  isModalVisible: boolean;
+  handleArticleClick: (article: Article) => void;
+  closeModal: () => void;
 };
 
-export const MainPage: FC<Props> = ({ articles, isLoading }) => {
+export const MainPage: FC<Props> = (
+  { articles,
+    isLoading,
+    selectedArticle,
+    isModalVisible,
+    handleArticleClick,
+    closeModal },
+) => {
   const splitIndex = 6;
   const topNews = articles.slice(0, splitIndex);
   const moreNews = articles.slice(splitIndex, splitIndex * 2);
@@ -23,9 +34,22 @@ export const MainPage: FC<Props> = ({ articles, isLoading }) => {
         <Loader />
       ) : (
         <>
-          <TopNews articles={topNews} />
+          <TopNews
+            articles={topNews}
+            selectedArticle={selectedArticle}
+            isModalVisible={isModalVisible}
+            onArticleClick={handleArticleClick}
+            onCloseModal={closeModal}
+          />
           
-          <ArticlesList title='More News' articles={moreNews} />
+          <ArticlesList
+            title='More News'
+            articles={moreNews}
+            selectedArticle={selectedArticle}
+            isModalVisible={isModalVisible}
+            onArticleClick={handleArticleClick}
+            onCloseModal={closeModal}
+          />
           
           <div className='main-page__button-wrapper'>
             <NavLink to='/list'>

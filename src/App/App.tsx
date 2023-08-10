@@ -11,6 +11,8 @@ import './App.css';
 
 export const App = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
   const fetchData = async() => {
@@ -27,6 +29,15 @@ export const App = () => {
     }
   };
   
+  const handleArticleClick = (article: Article) => {
+    setSelectedArticle(article);
+    setIsModalVisible(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,9 +48,26 @@ export const App = () => {
         <Header />
         
         <Routes>
-          <Route path='/' element={<MainPage articles={articles} isLoading={isLoading} />} />
+          <Route path='/' element={
+            <MainPage
+              articles={articles}
+              isLoading={isLoading}
+              selectedArticle={selectedArticle}
+              isModalVisible={isModalVisible}
+              handleArticleClick={handleArticleClick}
+              closeModal={closeModal}
+            />
+          } />
           
-          <Route path='/list' element={<ListPage articles={articles} />} />
+          <Route path='/list' element={
+            <ListPage
+              articles={articles}
+              selectedArticle={selectedArticle}
+              isModalVisible={isModalVisible}
+              handleArticleClick={handleArticleClick}
+              closeModal={closeModal}
+            />
+          } />
         </Routes>
         
         <Footer />
