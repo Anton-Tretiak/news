@@ -28,7 +28,7 @@ export const App = () => {
         
         <Routes>
           <Route
-            path="/"
+            path="/news"
             element={
               <MainPage
                 articles={articles}

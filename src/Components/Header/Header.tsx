@@ -12,12 +12,12 @@ export const Header = () => {
   return (
     <header className='header content'>
       {showBackButton && (
-        <NavLink to='/'>
+        <NavLink to='/news'>
           <img src={leftArrow} alt="Go Back" className='header__button' />
         </NavLink>
       )}
       
-      <NavLink to='/'>
+      <NavLink to='/news'>
         <img src={logo} alt="logo" />
       </NavLink>
       

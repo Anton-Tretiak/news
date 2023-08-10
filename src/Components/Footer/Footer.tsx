@@ -5,7 +5,7 @@ import './Footer.scss';
 
 export const Footer = () => (
   <footer className='footer'>
-    <NavLink to='/' onClick={() => window.scrollTo(0, 0)}>
+    <NavLink to='/news' onClick={() => window.scrollTo(0, 0)}>
       <img src={logo} alt="logo"/>
     </NavLink>
   </footer>
