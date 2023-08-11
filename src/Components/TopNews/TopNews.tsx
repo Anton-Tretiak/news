@@ -1,5 +1,7 @@
 import React, { FC, useCallback } from 'react';
 
+import { useArticleContext } from '../../Context/ArticleContext';
+
 import { TopNewsItem } from '../TopNewsItem';
 import { ModalContent } from '../ModalContent';
 
@@ -9,22 +11,14 @@ import './TopNews.scss';
 
 type Props = {
   articles: Article[];
-  selectedArticle: Article | null;
-  isModalVisible: boolean;
-  onArticleClick: (article: Article) => void;
-  onCloseModal: () => void;
 };
 
-export const TopNews: FC<Props> = React.memo((
-  { articles,
-    selectedArticle,
-    isModalVisible,
-    onArticleClick,
-    onCloseModal },
-) => {
-  const handleArticleClick = useCallback((article: Article) => {
-    onArticleClick(article);
-  }, [onArticleClick]);
+export const TopNews: FC<Props> = React.memo(({ articles }) => {
+  const { selectedArticle, handleArticleClick, isModalVisible } = useArticleContext();
+  
+  const onArticleClick = useCallback((article: Article) => {
+    handleArticleClick(article);
+  }, [handleArticleClick]);
   
   return (
     <section className='top-news section'>
@@ -37,7 +31,7 @@ export const TopNews: FC<Props> = React.memo((
           <div
             className='top-news__item column is-half-tablet is-one-third-desktop'
             key={article.url}
-            onClick={() => handleArticleClick(article)}
+            onClick={() => onArticleClick(article)}
           >
             <TopNewsItem article={article} />
           </div>
@@ -45,7 +39,7 @@ export const TopNews: FC<Props> = React.memo((
       </div>
       
       {isModalVisible && selectedArticle && (
-        <ModalContent selectedArticle={selectedArticle} closeModal={onCloseModal} />
+        <ModalContent />
       )}
     </section>
   );

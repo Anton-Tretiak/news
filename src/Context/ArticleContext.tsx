@@ -1,8 +1,32 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  FC,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
+
 import { fetchArticles } from '../API/api';
+
 import { Article } from '../Types/Article';
 
-export const useArticleData = () => {
+type ArticleContextType = {
+  articles: Article[];
+  selectedArticle: Article | null;
+  category: string;
+  isModalVisible: boolean;
+  isLoading: boolean;
+  handleArticleClick: (article: Article) => void;
+  closeModal: () => void;
+  handleCategoryChange: (selectedCategory: string) => void;
+  handleQueryChange: (value: string) => void;
+};
+
+const ArticleContext = createContext<ArticleContextType | undefined>(undefined);
+
+export const ArticleProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [category, setCategory] = useState('');
@@ -45,16 +69,31 @@ export const useArticleData = () => {
     setQuery(value);
   }, []);
   
-  return {
-    articles,
-    category,
-    query,
-    selectedArticle,
-    isModalVisible,
-    isLoading,
-    handleArticleClick,
-    closeModal,
-    handleCategoryChange,
-    handleQueryChange,
-  };
+  return (
+    <ArticleContext.Provider
+      value={{
+        articles,
+        category,
+        selectedArticle,
+        isModalVisible,
+        isLoading,
+        handleArticleClick,
+        closeModal,
+        handleCategoryChange,
+        handleQueryChange,
+      }}
+    >
+      {children}
+    </ArticleContext.Provider>
+  );
+};
+
+export const useArticleContext = () => {
+  const context = useContext(ArticleContext);
+  
+  if (!context) {
+    throw new Error('useArticleContext must be used within an ArticleProvider');
+  }
+  
+  return context;
 };

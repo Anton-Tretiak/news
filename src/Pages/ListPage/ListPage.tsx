@@ -1,28 +1,16 @@
 import React, { FC, useState, useEffect } from 'react';
 
-import { ArticlesList, Pagination } from '../../Components';
+import { useArticleContext } from '../../Context/ArticleContext';
 
-import { Article } from '../../Types/Article';
+import { ArticlesList, Pagination } from '../../Components';
 
 import './ListPage.scss';
 
-type Props = {
-  articles: Article[];
-  selectedArticle: Article | null;
-  isModalVisible: boolean;
-  handleArticleClick: (article: Article) => void;
-  closeModal: () => void;
-};
-
-export const ListPage: FC<Props> = ({
-  articles,
-  selectedArticle,
-  isModalVisible,
-  handleArticleClick,
-  closeModal,
-}) => {
-  const itemsPerPage = 6;
+export const ListPage: FC = () => {
+  const { articles } = useArticleContext();
+  
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   const maxPages = Math.ceil(articles.length / itemsPerPage);
   
   const handlePageChange = (newPage: number) => {
@@ -38,15 +26,8 @@ export const ListPage: FC<Props> = ({
   const displayedArticles = articles.slice(startIndex, endIndex);
   
   return (
-    <div className='list-page' style={{ width: '80%' }}>
-      <ArticlesList
-        title='More News'
-        articles={displayedArticles}
-        selectedArticle={selectedArticle}
-        isModalVisible={isModalVisible}
-        onArticleClick={handleArticleClick}
-        onCloseModal={closeModal}
-      />
+    <div className='list-page'>
+      <ArticlesList title='More News' articles={displayedArticles} />
       
       <Pagination
         maxPages={maxPages}

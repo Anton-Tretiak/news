@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react';
 
+import { useArticleContext } from '../../Context/ArticleContext';
+
 import { ArticleItem } from '../ArticleItem';
 import { ModalContent } from '../ModalContent';
 
@@ -10,20 +12,18 @@ import './ArticlesList.scss';
 type Props = {
   articles: Article[];
   title: string;
-  selectedArticle: Article | null;
-  isModalVisible: boolean;
-  onArticleClick: (article: Article) => void;
-  onCloseModal: () => void;
 };
 
 export const ArticlesList: FC<Props> = memo(({
   articles,
   title,
-  selectedArticle,
-  isModalVisible,
-  onArticleClick,
-  onCloseModal,
 }) => {
+  const {
+    selectedArticle,
+    isModalVisible,
+    handleArticleClick,
+  } = useArticleContext();
+  
   return (
     <section className='articles section'>
       <h1 className="title is-size-4-mobile is-size-3-desktop">
@@ -34,14 +34,14 @@ export const ArticlesList: FC<Props> = memo(({
         <div
           key={article.url}
           className='articles__article-wrapper'
-          onClick={() => onArticleClick(article)}
+          onClick={() => handleArticleClick(article)}
         >
           <ArticleItem article={article} />
         </div>
       ))}
       
       {isModalVisible && selectedArticle && (
-        <ModalContent selectedArticle={selectedArticle} closeModal={onCloseModal} />
+        <ModalContent />
       )}
     </section>
   );
