@@ -1,17 +1,17 @@
 import React, { FC, useCallback } from 'react';
 
-type Props = {
-  categories: string[];
-  activeCategory: string;
-  onCategoryChange: (selectedCategory: string) => void;
-}
+import { useArticleContext } from '../../Context/ArticleContext';
 
-export const Dropdown: FC<Props> = ({ categories, onCategoryChange, activeCategory }) => {
+export const Dropdown: FC = () => {
+  const { category, handleCategoryChange } = useArticleContext();
+  
+  const categories = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
+  
   const handleCategorySelect = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      onCategoryChange(e.target.value);
+      handleCategoryChange(e.target.value);
     },
-    [onCategoryChange],
+    [handleCategoryChange],
   );
   
   return (
@@ -19,17 +19,17 @@ export const Dropdown: FC<Props> = ({ categories, onCategoryChange, activeCatego
       <div className="control">
         <div className="select">
           <select
-            value={activeCategory}
+            value={category}
             onChange={handleCategorySelect}
           >
             <option value="">Top News</option>
             
-            {categories.map((category) => (
+            {categories.map((categoryItem) => (
               <option
-                key={category}
-                value={category}
+                key={categoryItem}
+                value={categoryItem}
               >
-                {category}
+                {categoryItem}
               </option>
             ))}
           </select>

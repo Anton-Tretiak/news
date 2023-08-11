@@ -1,12 +1,12 @@
 import React, { FC, useState, memo, useCallback } from 'react';
 
+import { useArticleContext } from '../../Context/ArticleContext';
+
 import './InputField.scss';
 
-type Props = {
-  onQueryChange: (value: string) => void;
-};
-
-export const InputField: FC<Props> = memo(({ onQueryChange }) => {
+export const InputField: FC = memo(() => {
+  const { handleQueryChange } = useArticleContext();
+  
   const [inputValue, setInputValue] = useState('');
   
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,9 +14,9 @@ export const InputField: FC<Props> = memo(({ onQueryChange }) => {
   }, []);
   
   const handleSearchClick = useCallback(() => {
-    onQueryChange(inputValue);
+    handleQueryChange(inputValue);
     setInputValue('');
-  }, [inputValue, onQueryChange]);
+  }, [inputValue, handleQueryChange]);
   
   return (
     <div className='input__wrapper'>
